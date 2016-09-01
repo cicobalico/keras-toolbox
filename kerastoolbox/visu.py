@@ -3,7 +3,7 @@ import os
 import numpy as np
 from ipywidgets import interact
 import matplotlib.pyplot as plt
-
+import keras.backend as K
 from tqdm import trange
 
 
@@ -44,8 +44,7 @@ def get_weights_mosaic(model, layer_id, n=64):
     if not hasattr(layer, "W"):
         raise Exception("The layer {} of type {} does not have weights.".format(layer.name,
                                                            layer.__class__.__name__))
-
-    weights = layer.W.get_value()
+    weights = K.eval(layer.W.value())
 
     # For now we only handle Conv layer like with 4 dimensions
     if weights.ndim != 4:
@@ -113,7 +112,7 @@ def plot_all_weights(model, n=64, n_columns=3, **kwargs):
 
     for i, layer in enumerate(model.layers):
         if hasattr(layer, "W"):
-            weights = layer.W.get_value()
+            weights = K.eval(layer.W.value())
             if weights.ndim == 4:
                 layers_to_show.append((i, layer))
 
