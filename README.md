@@ -18,7 +18,7 @@ Current features are :
 
 ## Dependencies
 
-- Python 2
+
 - the classics `numpy`, `pandas`, `scipy`
 - `Keras`
 - `matplotlib` for the visualization
