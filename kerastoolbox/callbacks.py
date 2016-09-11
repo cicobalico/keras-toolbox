@@ -23,7 +23,7 @@ class Monitor(Callback):
         Format of the date and time to display.
     """
 
-    def __init__(self, plot_history=None, date_format='%Y-%m-%d %H:%M'):
+    def __init__(self, plot_history=None, date_format='%Y-%m-%d %H:%M', **kwargs):
 
         super(Monitor,self).__init__()
 
@@ -36,7 +36,10 @@ class Monitor(Callback):
         self.state['epochs'] = []
 
         # Add/generate these attributes in keras.models.Model ?
-        self.state['name'] = 'A Keras model'
+        if 'model_name' in kwargs:
+            self.state['name'] = kwargs['model_name']
+        else:
+            self.state['name'] = 'A Keras model'
         self.state['model_id'] = str(uuid.uuid4())
         self.state['training_id'] = str(uuid.uuid4())
 
